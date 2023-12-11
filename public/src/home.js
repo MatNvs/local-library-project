@@ -15,24 +15,32 @@ function getBooksBorrowedCount(books) {
 }
 
 function getMostCommonGenres(books) {
-  let map = {};
- books.forEach((num) => {
-  if (map[num.genre]) {
-   map[num.genre]++;
-  } else {
-   map[num.genre] = 1;
-  }
- });
- return Object.entries(map)
-  .map(([name, count]) => {
-   return {
-    name,
-    count
-   };
-  })
-  .sort((a, b) => b.count - a.count)
-  .slice(0, 5);
-}
+  const result = books.reduce((accum, book) => {
+
+    const genre = book.genre;
+
+    const genreInfo = accum.find((element) => element.name === genre);
+
+    if (!genreInfo) {
+      const newGenreInfo = {
+        name: genre,
+        count: 1,
+      };
+      accum.push(newGenreInfo);
+    } else {
+  
+      genreInfo.count++;
+    }
+
+    return accum;
+  }, []);
+
+  result.sort((genreA, genreB) => genreB.count - genreA.count);
+
+  result.splice(5);
+
+  return result;
+};
 
 function getMostPopularBooks(books) {
   return books
