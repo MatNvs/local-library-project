@@ -2,3 +2,5 @@
 const grabAuthorById = (authors, id) => {
     return authors.find((author) => author.id === id);
 };
+
+module.exports = {grabAuthorById};

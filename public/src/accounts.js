@@ -1,3 +1,5 @@
+const {grabAuthorById} = require("./helper.js");
+
 function findAccountById(accounts, id) {
   let foundId = accounts.find((account) => account.id === id);
  return foundId;
